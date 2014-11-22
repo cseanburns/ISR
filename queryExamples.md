@@ -88,7 +88,7 @@ AND element_id = 2;
 ```
 
 * Truncate keyword and use the `%` sign to look for any string of
-  text that BEGINS with *libr*:
+  text that begins with *libr*:
 
 ```sql
 SELECT Description
@@ -108,8 +108,9 @@ AND element_id = 2;
 
 * A Boolean *And/Not* query.  Search for all instances of the word
   *libraries* but not instances of the word *librarians*. Use the
-  plus sign to make sure the keyword is in my results and the
-  minus sign to make sure the keyword is not in my search results.
+  plus sign to make sure the keyword is in the results and the
+  minus sign to make sure the keyword is not in the search
+  results.
 
 ```sql
 SELECT description
@@ -118,7 +119,7 @@ WHERE match(description)
         against('+libraries -librarians' IN BOOLEAN mode);
 ```
 
-* Use lhe `group by` to organize groups of data:
+* Use lhe `GROUP BY` to organize groups of data:
 
 ```sql
 SELECT element_id,count(description)
@@ -126,7 +127,7 @@ FROM dcvalues
 GROUP BY element_id;
 ```
 
-* The *natural join*, displays two tables using various
+* The `NATURAL JOIN`, displays two tables using various
   parameters:
 
 ```sql
@@ -136,7 +137,7 @@ NATURAL JOIN dcelements
 GROUP BY element_id;
 ```
 
-* Logical AND OR query.
+* Logical AND\OR query.
 
 ```sql
 SELECT record_id, element_id, Description
@@ -145,8 +146,8 @@ WHERE description LIKE '%william%'
 OR description LIKE '%alan%';
 ```
 
-* The above but exclude variations of the name `bert` (e.g., Bert
-  Williams):
+* The above but exclude variations of the name *bert* (e.g., *Bert
+  Williams*):
 
 ```sql
 SELECT record_id, element_id, Description
@@ -173,12 +174,12 @@ WHERE value_id between 89 AND 93
 ORDER BY element_id;
 ```
 
-* Descriptive statistics, group by, natural join, new field name,
-  and having:
+* Descriptive statistics, `GROUP BY`, `NATURAL JOIN`, new field
+  name *Total*, and HAVING:
 
 ```sql
 SELECT dcelementName, count(Description)
-        AS total
+        AS Total
 FROM dcvalues
 NATURAL JOIN dcelements
 GROUP BY element_id
