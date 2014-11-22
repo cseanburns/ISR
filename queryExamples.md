@@ -21,7 +21,7 @@ AND dcelements.dcElementName    = 'Title';
 SELECT Description, dcElementName, dcElementDescr
 FROM dcvalues, dcelements
 WHERE dcvalues.element_id       = dcelements.element_id
-AND   dcvalues.record_id        = '2'
+AND dcvalues.record_id          = '2'
 AND dcelements.dcElementName    = 'Title';
 ```
 
@@ -38,8 +38,8 @@ WHERE match(Description) against('Wall');
 ```sql
 SELECT Description, dcElementName, dcElementDescr
 FROM dcvalues, dcelements
-WHERE  dcvalues.element_id      = dcelements.element_id
-AND    dcelements.dcElementName = 'Subject';
+WHERE dcvalues.element_id       = dcelements.element_id
+AND dcelements.dcElementName    = 'Subject';
 ```
 
 * Comparable to examining the subject headings of a particular
@@ -49,8 +49,8 @@ AND    dcelements.dcElementName = 'Subject';
 SELECT Description, dcElementName, dcElementDescr
 FROM dcvalues, dcelements
 WHERE dcvalues.element_id       = dcelements.element_id
-AND   dcvalues.record_id        = '2'
-AND   dcelements.dcElementName  = 'Subject';
+AND dcvalues.record_id          = '2'
+AND dcelements.dcElementName    = 'Subject';
 ```
 
 * A fulltext search for the keyword *wall* but limited to the
@@ -75,23 +75,25 @@ LIMIT 10;
 ```sql
 SELECT * FROM dcvalues
 WHERE element_id = '2'
-limit 10,10;
+LIMIT 10,10;
 ```
 
 * Do a fulltext search for *libraries*:
 
 ```sql
 SELECT Description
-FROM dcvalues WHERE match(Description) against('libraries')
+FROM dcvalues
+WHERE match(Description) against('libraries')
 AND element_id = 2;
 ```
 
 * Truncate keyword and use the `%` sign to look for any string of
   text that BEGINS with *libr*:
 
-```
+```sql
 SELECT Description
-FROM dcvalues where Description like "libr%"
+FROM dcvalues
+WHERE Description LIKE "libr%"
 AND element_id = 2;
 ```
 
@@ -99,7 +101,8 @@ AND element_id = 2;
 
 ```sql
 SELECT Description
-FROM dcvalues where Description like "%libr%"
+FROM dcvalues
+WHERE Description LIKE "%libr%"
 AND element_id = 2;
 ```
 
@@ -110,8 +113,9 @@ AND element_id = 2;
 
 ```sql
 SELECT description
-FROM dcvalues where match(description)
-        against('+libraries -librarians' in boolean mode);
+FROM dcvalues
+WHERE match(description)
+        against('+libraries -librarians' IN BOOLEAN mode);
 ```
 
 * Use lhe `group by` to organize groups of data:
@@ -137,10 +141,8 @@ GROUP BY element_id;
 ```sql
 SELECT record_id, element_id, Description
 FROM dcvalues
-WHERE description
-        LIKE '%william%'
-OR description
-        LIKE '%alan%';
+WHERE description LIKE '%william%'
+OR description LIKE '%alan%';
 ```
 
 * The above but exclude variations of the name `bert` (e.g., Bert
@@ -149,12 +151,9 @@ OR description
 ```sql
 SELECT record_id, element_id, Description
 FROM dcvalues
-WHERE description
-        LIKE '%william%'
-AND description
-        NOT LIKE '%bert%'
-OR description
-        LIKE '%alan%';
+WHERE description LIKE '%william%'
+AND description NOT LIKE '%bert%'
+OR description LIKE '%alan%';
 ```
 
 * Randomly order results:
@@ -170,12 +169,12 @@ LIMIT 5;
 
 ```sql
 SELECT * FROM dcvalues
-WHERE value_id between 89 and 93
+WHERE value_id between 89 AND 93
 ORDER BY element_id;
 ```
 
 * Descriptive statistics, group by, natural join, new field name,
-and having:
+  and having:
 
 ```sql
 SELECT dcelementName, count(Description)
@@ -196,7 +195,7 @@ FROM dcvalues
 NATURAL JOIN dcelements
 GROUP BY element_id
         HAVING total > 40
-ORDER BY total desc;
+ORDER BY total DESC;
 ```
 
 * Update a record:
