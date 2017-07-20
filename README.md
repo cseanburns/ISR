@@ -36,7 +36,7 @@ A PHP script could be added to the web front end that would log
 visits, then they would have access to web site logs for
 analytics.
 
-The purpose of the course is not to teach the students to be
+The purpose of the course is not to teach students to be
 programmers. The purpose is to foster some understanding of what
 happens 'under the hood' with the systems they use every day
 (OPACs, electronic databases, etc.) and to reduce computer anxiety
